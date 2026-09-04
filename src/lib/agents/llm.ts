@@ -3,7 +3,7 @@ import { ChatGroq } from '@langchain/groq';
 let llmInstance: ChatGroq | null = null;
 
 function resolveGroqModel(configuredModel?: string): string {
-  const DEFAULT_MODEL = 'llama-3.3-70b-versatile';
+  const DEFAULT_MODEL = 'openai/gpt-oss-120b';
   if (!configuredModel) return DEFAULT_MODEL;
   // If model is set to an unsupported OpenAI or generic string, fall back to high-performance Groq model
   if (configuredModel.includes('openai') || configuredModel.includes('gpt') || configuredModel.includes('claude')) {
