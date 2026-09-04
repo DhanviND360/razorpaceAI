@@ -1,10 +1,10 @@
-import { StateGraph, END } from '@langchain/langgraph';
+import { StateGraph } from '@langchain/langgraph';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { MerchantAgentState, MerchantAgentStateType } from './state';
 import { getLLM } from './llm';
 import { generateUpsellCandidates, generateCrossSellCandidates } from './tools/recommendations';
 import { getCustomerProfile, getPurchaseHistory } from './tools/customer';
-import { getProduct, getReviews } from './tools/search';
+import { getProduct } from './tools/search';
 import { getMerchantPolicy } from './tools/policy';
 import { createAuditEvent } from '../schemas/audit';
 
@@ -54,10 +54,19 @@ Summarize:
 3. What would be genuinely helpful to recommend
 4. Budget constraints to respect`;
 
-  const response = await llm.invoke([
-    new SystemMessage(MERCHANT_SYSTEM_PROMPT),
-    new HumanMessage(prompt),
-  ]);
+  let outputPreview = `Analyzed context for customer ${state.customerId}: goal ${state.customerGoal}, budget ₹${state.customerBudget}`;
+  try {
+    const response = await llm.invoke([
+      new SystemMessage(MERCHANT_SYSTEM_PROMPT),
+      new HumanMessage(prompt),
+    ]);
+
+    if (typeof response.content === 'string' && response.content.trim()) {
+      outputPreview = response.content.replace(/\n+/g, ' ').substring(0, 120);
+    }
+  } catch (err) {
+    console.warn('customerContextAnalysis LLM notice:', err instanceof Error ? err.message : err);
+  }
 
   const audit = createAuditEvent({
     sessionId: state.sessionId,
@@ -65,7 +74,7 @@ Summarize:
     action: 'CUSTOMER_CONTEXT_ANALYSIS',
     tool: 'get_customer_profile, get_purchase_history',
     inputSummary: `Customer ${state.customerId}, Product ${state.productName}, Budget ₹${state.customerBudget}`,
-    outputSummary: `Analyzed customer context for ${state.customerGoal}`,
+    outputSummary: outputPreview,
     reason: 'Understanding customer needs before making recommendations',
     status: 'success',
   });
@@ -122,13 +131,13 @@ Respond in JSON format:
   "valueProposition": "What specific benefit the customer gets"
 }`;
 
-  const response = await llm.invoke([
-    new SystemMessage(MERCHANT_SYSTEM_PROMPT),
-    new HumanMessage(prompt),
-  ]);
-
   let upsellOffer = null;
   try {
+    const response = await llm.invoke([
+      new SystemMessage(MERCHANT_SYSTEM_PROMPT),
+      new HumanMessage(prompt),
+    ]);
+
     const content = typeof response.content === 'string' ? response.content : '';
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -143,8 +152,18 @@ Respond in JSON format:
         };
       }
     }
-  } catch {
-    // If JSON parsing fails, skip upsell
+  } catch (err) {
+    console.warn('generateUpsell LLM notice:', err instanceof Error ? err.message : err);
+    const candidate = candidates.candidates.find((c: { price: number }) => c.price <= state.customerBudget);
+    if (candidate) {
+      upsellOffer = {
+        productId: candidate.id,
+        name: candidate.name,
+        price: candidate.price,
+        priceDelta: candidate.price - state.productPrice,
+        reason: `Recommended premium upgrade matching ${state.customerGoal}`,
+      };
+    }
   }
 
   const audit = createAuditEvent({
@@ -236,13 +255,13 @@ Respond in JSON:
   "reason": "2-3 sentence explanation of how this complements the primary product for the customer's goal"
 }`;
 
-  const response = await llm.invoke([
-    new SystemMessage(MERCHANT_SYSTEM_PROMPT),
-    new HumanMessage(prompt),
-  ]);
-
   let crossSellOffer = null;
   try {
+    const response = await llm.invoke([
+      new SystemMessage(MERCHANT_SYSTEM_PROMPT),
+      new HumanMessage(prompt),
+    ]);
+
     const content = typeof response.content === 'string' ? response.content : '';
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -256,8 +275,17 @@ Respond in JSON:
         };
       }
     }
-  } catch {
-    // Skip cross-sell on parse failure
+  } catch (err) {
+    console.warn('generateCrossSell LLM notice:', err instanceof Error ? err.message : err);
+    const candidate = affordableCandidates[0];
+    if (candidate) {
+      crossSellOffer = {
+        productId: candidate.id,
+        name: candidate.name,
+        price: candidate.price,
+        reason: `Complementary addition within remaining budget for ${state.customerGoal}`,
+      };
+    }
   }
 
   const audit = createAuditEvent({

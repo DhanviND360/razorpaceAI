@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
 
     saveCart(sessionId, cart);
     return NextResponse.json(cart);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 }

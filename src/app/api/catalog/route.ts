@@ -21,8 +21,10 @@ export async function GET() {
       description: m.description,
       aiReadable: m.aiReadable,
       transactionReady: m.transactionReady,
+      catalogEndpoint: m.catalogEndpoint,
       productCount: products.length,
       catalogScore: evaluation.overallScore,
+      dimensions: evaluation.dimensions,
       aiReady: evaluation.aiReady,
       recommendation: evaluation.recommendation,
     };

@@ -509,15 +509,13 @@ export function searchProductsInCatalog(
   maxPrice?: number
 ): Product[] {
   const products = allProducts[merchantId] || [];
-  const queryLower = query.toLowerCase();
+  const queryLower = query.toLowerCase().trim();
+  const words = queryLower.split(/[\s,]+/).filter(w => w.length > 2);
 
   return products.filter(p => {
-    const matchesQuery =
-      p.name.toLowerCase().includes(queryLower) ||
-      p.description.toLowerCase().includes(queryLower) ||
-      p.category.toLowerCase().includes(queryLower) ||
-      p.compatibilityTags.some(t => t.toLowerCase().includes(queryLower));
-    const matchesCategory = !category || p.category === category || p.subcategory === category;
+    const pText = `${p.name} ${p.description} ${p.category} ${p.subcategory || ''} ${p.compatibilityTags.join(' ')}`.toLowerCase();
+    const matchesQuery = !queryLower || pText.includes(queryLower) || (words.length > 0 && words.some(w => pText.includes(w)));
+    const matchesCategory = !category || p.category.toLowerCase().includes(category.toLowerCase()) || (p.subcategory ? p.subcategory.toLowerCase().includes(category.toLowerCase()) : false);
     const matchesPrice = !maxPrice || p.price <= maxPrice;
     return matchesQuery && matchesCategory && matchesPrice && p.isActive;
   });

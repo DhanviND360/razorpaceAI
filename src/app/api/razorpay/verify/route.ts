@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyRazorpaySignature } from '@/lib/razorpay/client';
-import { addOrder, updateOrder, getOrderByRazorpayId, addAuditEvent, getCart } from '@/lib/data/store';
+import { addOrder, addAuditEvent, getCart } from '@/lib/data/store';
 import { createAuditEvent } from '@/lib/schemas/audit';
 import { Order } from '@/lib/schemas/order';
 
