@@ -36,6 +36,8 @@ export const ProductSchema = z.object({
   relatedProducts: z.array(z.string()).default([]),
   compatibilityTags: z.array(z.string()).default([]),
   imageUrl: z.string().optional(),
+  costPrice: z.number().positive().optional(),
+  marginPercent: z.number().min(0).max(100).optional(),
   isActive: z.boolean().default(true),
 });
 

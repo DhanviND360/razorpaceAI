@@ -10,6 +10,8 @@ export const AuditEventSchema = z.object({
   inputSummary: z.string(),
   outputSummary: z.string(),
   reason: z.string().optional(),
+  policyResult: z.string().optional(),
+  nextState: z.string().optional(),
   status: z.enum(['success', 'failed', 'pending', 'blocked', 'skipped']),
   metadata: z.record(z.string(), z.unknown()).optional(),
 });
