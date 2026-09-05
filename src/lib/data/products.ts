@@ -524,3 +524,19 @@ export function searchProductsInCatalog(
 export function getAllProductsFlat(): Product[] {
   return Object.values(allProducts).flat();
 }
+
+export function getProductMargin(product: Product): { costPrice: number; marginAmount: number; marginPercent: number } {
+  let marginPct = product.marginPercent;
+  if (marginPct === undefined) {
+    if (product.name.toLowerCase().includes('premium') || product.name.toLowerCase().includes('isolate')) {
+      marginPct = 46;
+    } else if (product.category === 'recovery' || product.category === 'vitamins' || product.category === 'snacks') {
+      marginPct = 52;
+    } else {
+      marginPct = 35;
+    }
+  }
+  const costPrice = product.costPrice ?? Math.round(product.price * (1 - marginPct / 100));
+  const marginAmount = Math.max(0, product.price - costPrice);
+  return { costPrice, marginAmount, marginPercent: marginPct };
+}

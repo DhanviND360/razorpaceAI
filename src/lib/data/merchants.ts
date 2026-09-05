@@ -24,6 +24,9 @@ export const merchants: Merchant[] = [
       upsellEnabled: true,
       crossSellEnabled: true,
       maxUpsellPriceDeltaPercent: 20,
+      minMarginPercent: 20,
+      stockBuffer: 5,
+      optimizationObjective: 'REVENUE',
     },
     supportedPaymentMethods: ['razorpay', 'cod'],
     contactEmail: 'support@herbamed.example.com',
@@ -52,6 +55,9 @@ export const merchants: Merchant[] = [
       upsellEnabled: true,
       crossSellEnabled: true,
       maxUpsellPriceDeltaPercent: 15,
+      minMarginPercent: 18,
+      stockBuffer: 5,
+      optimizationObjective: 'REVENUE',
     },
     supportedPaymentMethods: ['razorpay'],
     contactEmail: 'hello@nutriworld.example.com',
@@ -70,6 +76,9 @@ export const merchants: Merchant[] = [
       maxDiscountPercent: 5,
       returnWindowDays: 7,
       minOrderValue: 0,
+      minMarginPercent: 15,
+      stockBuffer: 0,
+      optimizationObjective: 'REVENUE',
       shippingCost: 99,
       codAvailable: false,
       upsellEnabled: false,
@@ -93,6 +102,9 @@ export const merchants: Merchant[] = [
       maxDiscountPercent: 0,
       returnWindowDays: 0,
       minOrderValue: 0,
+      minMarginPercent: 10,
+      stockBuffer: 0,
+      optimizationObjective: 'REVENUE',
       shippingCost: 0,
       codAvailable: false,
       upsellEnabled: false,
@@ -117,4 +129,15 @@ export function getAllMerchants(): Merchant[] {
 
 export function getActiveMerchants(): Merchant[] {
   return merchants.filter(m => m.isActive);
+}
+
+export function updateMerchantObjective(
+  merchantId: string,
+  objective: 'REVENUE' | 'MARGIN' | 'INVENTORY' | 'RETENTION'
+): Merchant | undefined {
+  const merchant = merchants.find(m => m.id === merchantId);
+  if (merchant) {
+    merchant.policies.optimizationObjective = objective;
+  }
+  return merchant;
 }
