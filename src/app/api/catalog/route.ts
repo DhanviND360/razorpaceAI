@@ -24,8 +24,13 @@ export async function GET() {
       catalogEndpoint: m.catalogEndpoint,
       productCount: products.length,
       catalogScore: evaluation.overallScore,
-      dimensions: evaluation.dimensions,
+      aiReadinessScore: evaluation.aiReadinessScore,
+      commerceReadinessScore: evaluation.commerceReadinessScore,
       aiReady: evaluation.aiReady,
+      commerceReady: evaluation.commerceReady,
+      isFullyTransactable: evaluation.isFullyTransactable,
+      dimensions: evaluation.dimensions,
+      transactabilityBlockers: evaluation.transactabilityBlockers,
       recommendation: evaluation.recommendation,
     };
   });
@@ -34,5 +39,6 @@ export async function GET() {
     merchants: catalogList,
     totalMerchants: catalogList.length,
     aiReadyCount: catalogList.filter(c => c.aiReady).length,
+    fullyTransactableCount: catalogList.filter(c => c.isFullyTransactable).length,
   });
 }
