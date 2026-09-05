@@ -25,7 +25,7 @@ export async function GET() {
     const agentMetrics = agentDefinitions.map(def => {
       const events = allEvents.filter(e => e.agent === def.id);
       const successEvents = events.filter(e => e.status === 'success');
-      const blockedEvents = events.filter(e => e.status === 'blocked' || e.status === 'failed' || e.status === 'warn');
+      const blockedEvents = events.filter(e => e.status === 'blocked' || e.status === 'failed');
       const lastEvent = events.length > 0 ? events[events.length - 1] : null;
 
       return {
