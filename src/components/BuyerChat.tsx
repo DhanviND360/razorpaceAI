@@ -531,6 +531,10 @@ export default function BuyerChat() {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               sessionId,
+              cartId: agentState?.cartId,
+              selectedProduct: agentState?.selectedProduct,
+              upsellOffer: agentState?.upsellOffer,
+              crossSellOffer: agentState?.crossSellOffer,
             }),
           });
           const verifyData = await verifyRes.json();
@@ -547,9 +551,22 @@ export default function BuyerChat() {
               content: `Settlement captured. Signature HMAC verified. Order ${response.razorpay_order_id} stored with full audit ledger.`,
               timestamp: now,
             }]);
+          } else {
+            const now = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            setMessages(prev => [...prev, {
+              role: 'agent',
+              content: `Payment verification failed: ${verifyData.message || 'Signature mismatch'}. ${verifyData.retryAvailable ? 'You may retry the payment.' : ''}`,
+              timestamp: now,
+            }]);
           }
         } catch (err) {
           console.error('Error verifying payment:', err);
+          const now = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          setMessages(prev => [...prev, {
+            role: 'agent',
+            content: `Payment verification error: ${err instanceof Error ? err.message : String(err)}`,
+            timestamp: now,
+          }]);
         }
       },
       prefill: {

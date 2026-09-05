@@ -13,7 +13,12 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sessionId, razorpayOrderId, razorpayPaymentId, razorpaySignature, cartId, selectedProduct, upsellOffer, crossSellOffer } = body;
+    // Accept both snake_case (from Razorpay SDK callback) and camelCase keys
+    const sessionId = body.sessionId;
+    const razorpayOrderId = body.razorpay_order_id || body.razorpayOrderId;
+    const razorpayPaymentId = body.razorpay_payment_id || body.razorpayPaymentId;
+    const razorpaySignature = body.razorpay_signature || body.razorpaySignature;
+    const { cartId, selectedProduct, upsellOffer, crossSellOffer } = body;
 
     if (!sessionId || !razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });

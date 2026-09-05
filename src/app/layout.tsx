@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Link from "next/link";
-import { Cpu, Activity } from "lucide-react";
+import RouteNav from "@/components/RouteNav";
 
 export const metadata: Metadata = {
   title: "RazorPace AI — Agentic Commerce Infrastructure",
@@ -94,64 +94,8 @@ export default function RootLayout({
               </div>
             </Link>
 
-            {/* Navigation Tabs */}
-            <nav style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              padding: '3px',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--border-hairline)',
-            }}>
-              <Link
-                href="/"
-                style={{
-                  padding: '6px 14px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  color: 'var(--text-secondary)',
-                  borderRadius: 'var(--radius-sm)',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                Overview
-              </Link>
-              <Link
-                href="/buyer"
-                style={{
-                  padding: '6px 14px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  color: 'var(--text-secondary)',
-                  borderRadius: 'var(--radius-sm)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Cpu size={13} strokeWidth={1.75} />
-                <span>Autonomous Buyer</span>
-              </Link>
-              <Link
-                href="/merchant"
-                style={{
-                  padding: '6px 14px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  color: 'var(--text-secondary)',
-                  borderRadius: 'var(--radius-sm)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Activity size={13} strokeWidth={1.75} />
-                <span>Merchant Operator</span>
-              </Link>
-            </nav>
+            {/* Route Switcher (visible on /buyer & /merchant only) */}
+            <RouteNav />
 
             {/* Right Action */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

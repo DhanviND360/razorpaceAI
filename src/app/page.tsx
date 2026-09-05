@@ -8,7 +8,10 @@ import {
   Lock, 
   Activity, 
   FileCheck, 
-  Scale 
+  Scale,
+  Zap,
+  Bot,
+  BarChart3,
 } from 'lucide-react';
 
 export default function Home() {
@@ -17,7 +20,7 @@ export default function Home() {
       {/* ============================================================ */}
       {/* 1. HERO SECTION: THE NEXT CUSTOMER MAY NOT BE HUMAN          */}
       {/* ============================================================ */}
-      <section style={{ textAlign: 'center', marginBottom: '80px', paddingTop: '16px' }}>
+      <section style={{ textAlign: 'center', marginBottom: '64px', paddingTop: '16px' }}>
         {/* Category Badge */}
         <div className="badge badge-indigo" style={{
           padding: '6px 14px',
@@ -69,7 +72,7 @@ export default function Home() {
           Make your merchant discoverable, understandable and transactable by AI — while your growth agent turns relevant intent into higher-value purchases.
         </p>
 
-        {/* Primary Actions */}
+        {/* Primary CTA Buttons */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -82,12 +85,14 @@ export default function Home() {
             href="/buyer"
             className="btn-primary"
             style={{
-              padding: '12px 26px',
-              fontSize: '13px',
+              padding: '14px 32px',
+              fontSize: '14px',
               borderRadius: 'var(--radius-sm)',
+              fontWeight: 600,
             }}
           >
-            <span>Enter Sandbox</span>
+            <Cpu size={16} strokeWidth={2} />
+            <span>Try the AI Buyer Agent</span>
             <ArrowRight size={14} strokeWidth={2} />
           </Link>
 
@@ -95,13 +100,14 @@ export default function Home() {
             href="/merchant"
             className="btn-secondary"
             style={{
-              padding: '12px 24px',
-              fontSize: '13px',
+              padding: '14px 28px',
+              fontSize: '14px',
               borderRadius: 'var(--radius-sm)',
+              fontWeight: 600,
             }}
           >
             <Activity size={14} strokeWidth={1.75} color="var(--accent-emerald)" />
-            <span>Operator Dashboard</span>
+            <span>Merchant Operator Dashboard</span>
           </Link>
         </div>
 
@@ -138,7 +144,212 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* 2. THE PARADIGM SHIFT: CLICKS TO CONVERSATIONS              */}
+      {/* 2. RAZORPACE AI — THE CENTERPIECE SOLUTION SECTION            */}
+      {/* ============================================================ */}
+      <section style={{
+        marginBottom: '88px',
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid rgba(99, 102, 241, 0.3)',
+        background: 'linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(9, 9, 11, 1) 60%)',
+        padding: '56px 36px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* Ambient Glow Behind Logo */}
+        <div style={{
+          position: 'absolute',
+          top: '-60px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '500px',
+          height: '200px',
+          background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.2), transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          {/* Logo Icon */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '72px',
+            height: '72px',
+            borderRadius: 'var(--radius-lg)',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%)',
+            border: '1px solid rgba(99, 102, 241, 0.4)',
+            marginBottom: '24px',
+            boxShadow: '0 0 60px rgba(99, 102, 241, 0.15)',
+          }}>
+            <span style={{
+              fontSize: '32px',
+              fontWeight: 800,
+              fontFamily: 'var(--font-mono)',
+              background: 'linear-gradient(135deg, #818cf8, #6366f1)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>₹</span>
+          </div>
+
+          {/* Brand Name */}
+          <div style={{ marginBottom: '8px' }}>
+            <span style={{
+              fontSize: 'clamp(32px, 5vw, 52px)',
+              fontWeight: 800,
+              letterSpacing: '-0.04em',
+              background: 'linear-gradient(135deg, #ffffff 0%, #818cf8 50%, #6366f1 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              RAZORPACE
+            </span>
+            <span style={{
+              fontSize: 'clamp(32px, 5vw, 52px)',
+              fontWeight: 800,
+              letterSpacing: '-0.04em',
+              color: 'var(--accent-primary)',
+              marginLeft: '12px',
+            }}>
+              AI
+            </span>
+          </div>
+
+          {/* Subtitle */}
+          <div style={{
+            fontSize: '13px',
+            fontFamily: 'var(--font-mono)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.15em',
+            color: 'var(--text-muted)',
+            marginBottom: '24px',
+          }}>
+            Merchant Enablement Engine for Agentic Commerce
+          </div>
+
+          {/* Description */}
+          <p style={{
+            fontSize: '16px',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.7,
+            maxWidth: '720px',
+            margin: '0 auto 36px auto',
+          }}>
+            The intelligence layer between AI commerce and Razorpay payments. 
+            RazorPace makes merchant catalogs machine-readable, evaluates AI readiness, 
+            and operates autonomous growth agents that increase transaction value — before 
+            the Razorpay payment rail is called.
+          </p>
+
+          {/* Core Capabilities Row */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '12px',
+            maxWidth: '800px',
+            margin: '0 auto 40px auto',
+          }}>
+            {[
+              { icon: <Bot size={18} color="var(--accent-primary)" />, title: 'Dual-Agent System', desc: 'Buyer agent + merchant growth operator' },
+              { icon: <Zap size={18} color="var(--accent-amber)" />, title: 'Zero-LLM Engine', desc: 'Deterministic heuristic upsell & bundling' },
+              { icon: <ShieldCheck size={18} color="var(--accent-emerald)" />, title: '7 Policy Gates', desc: 'Hard financial bounds, zero hallucination' },
+              { icon: <BarChart3 size={18} color="var(--accent-blue)" />, title: 'Real-time Analytics', desc: 'Live telemetry & session audit trail' },
+            ].map((item, i) => (
+              <div key={i} style={{
+                padding: '20px 16px',
+                borderRadius: 'var(--radius-md)',
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid var(--border-hairline)',
+                textAlign: 'center',
+              }}>
+                <div style={{ marginBottom: '10px', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '4px' }}>{item.title}</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.4 }}>{item.desc}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Architecture Visual Stack */}
+          <div style={{
+            maxWidth: '640px',
+            margin: '0 auto',
+            background: 'rgba(0, 0, 0, 0.4)',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-hairline)',
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}>
+            {/* Top Layer */}
+            <div style={{
+              padding: '12px 16px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--border-hairline)',
+            }}>
+              <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                LAYER 01 / CLIENT INTENT
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>
+                Autonomous Buyer & Conversational Agents
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                LangGraph.js • Model Context Protocol (MCP) • User Goal Extraction
+              </div>
+            </div>
+
+            {/* Connecting line */}
+            <div style={{ textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px' }}>↓</div>
+
+            {/* Middle Layer (RazorPace) — Highlighted */}
+            <div style={{
+              padding: '14px 16px',
+              background: 'rgba(99, 102, 241, 0.08)',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid rgba(99, 102, 241, 0.4)',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--accent-primary)', fontWeight: 600 }}>
+                  LAYER 02 / RAZORPACE INTELLIGENCE
+                </div>
+                <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono)', background: 'var(--accent-primary)', color: '#fff', padding: '1px 6px', borderRadius: '3px' }}>
+                  CORE ENGINE
+                </span>
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginTop: '4px' }}>
+                Merchant Readiness, Growth & Policy Control
+              </div>
+              <div style={{ fontSize: '11px', color: '#c7d2fe', marginTop: '4px', lineHeight: 1.4 }}>
+                Catalog Readability (0–100) • Heuristic Upsell & Recovery Bundling • 7 Hard Policy Bounds
+              </div>
+            </div>
+
+            {/* Connecting line */}
+            <div style={{ textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px' }}>↓</div>
+
+            {/* Bottom Layer (Razorpay) */}
+            <div style={{
+              padding: '12px 16px',
+              background: 'rgba(16, 185, 129, 0.06)',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
+            }}>
+              <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)', marginBottom: '4px' }}>
+                LAYER 03 / PAYMENT INFRASTRUCTURE
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>
+                Razorpay Agentic Payments & Settlement
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                Official Razorpay Node SDK • HMAC-SHA256 Signatures • Standard Checkout
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 3. THE PARADIGM SHIFT: CLICKS TO CONVERSATIONS               */}
       {/* ============================================================ */}
       <section style={{ marginBottom: '88px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -316,134 +527,6 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* 3. THE RAZORPAY CONNECTION: THE INTELLIGENCE LAYER          */}
-      {/* ============================================================ */}
-      <section className="bento-card" style={{
-        marginBottom: '88px',
-        padding: '36px',
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '32px',
-          alignItems: 'center',
-        }}>
-          <div>
-            <div className="badge badge-emerald" style={{
-              fontSize: '11px',
-              marginBottom: '12px',
-            }}>
-              Strategic Ecosystem Positioning
-            </div>
-            <h2 style={{
-              fontSize: '26px',
-              fontWeight: 700,
-              letterSpacing: '-0.03em',
-              color: '#fff',
-              lineHeight: 1.25,
-              marginBottom: '16px',
-            }}>
-              THE INTELLIGENCE LAYER BETWEEN AI COMMERCE AND RAZORPAY PAYMENTS.
-            </h2>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '20px' }}>
-              Razorpay provides the trusted payment infrastructure for the agentic era — bounded tokenization, authenticated checkout, and high-speed settlement.
-            </p>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
-              <strong>RazorPace AI</strong> is the merchant enablement engine: making catalog schemas machine-readable, evaluating AI readiness, and operating autonomous growth agents that increase transaction value before the Razorpay payment rail is called.
-            </p>
-
-            <div style={{
-              display: 'flex',
-              gap: '16px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
-              flexWrap: 'wrap',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fff' }}>
-                <CheckCircle2 size={14} color="var(--accent-emerald)" />
-                <span>AI-Ready MCP Schemas</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fff' }}>
-                <CheckCircle2 size={14} color="var(--accent-emerald)" />
-                <span>Zero-Latency Growth Engine</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Architecture Visual Stack */}
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.5)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-hairline)',
-            padding: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}>
-            {/* Top Layer */}
-            <div className="bento-card-inner" style={{ padding: '12px 16px' }}>
-              <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                LAYER 01 / CLIENT INTENT
-              </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>
-                Autonomous Buyer & Conversational Agents
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                LangGraph.js • Model Context Protocol (MCP) • User Goal Extraction
-              </div>
-            </div>
-
-            {/* Connecting line */}
-            <div style={{ textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px' }}>↓</div>
-
-            {/* Middle Layer (RazorPace) */}
-            <div style={{
-              padding: '14px 16px',
-              background: 'rgba(99, 102, 241, 0.08)',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid rgba(99, 102, 241, 0.4)',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--accent-primary)', fontWeight: 600 }}>
-                  LAYER 02 / RAZORPACE INTELLIGENCE
-                </div>
-                <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono)', background: 'var(--accent-primary)', color: '#fff', padding: '1px 6px', borderRadius: '3px' }}>
-                  CORE ENGINE
-                </span>
-              </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginTop: '4px' }}>
-                Merchant Readiness, Growth & Policy Control
-              </div>
-              <div style={{ fontSize: '11px', color: '#c7d2fe', marginTop: '4px', lineHeight: 1.4 }}>
-                Catalog Readability (0–100) • Heuristic Upsell & Recovery Bundling • 7 Hard Policy Bounds
-              </div>
-            </div>
-
-            {/* Connecting line */}
-            <div style={{ textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px' }}>↓</div>
-
-            {/* Bottom Layer (Razorpay) */}
-            <div style={{
-              padding: '12px 16px',
-              background: 'rgba(16, 185, 129, 0.06)',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid rgba(16, 185, 129, 0.25)',
-            }}>
-              <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)', marginBottom: '4px' }}>
-                LAYER 03 / PAYMENT INFRASTRUCTURE
-              </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>
-                Razorpay Agentic Payments & Settlement
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                Official Razorpay Node SDK • HMAC-SHA256 Signatures • Standard Checkout
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
       {/* 4. THE DUAL-AGENT ENGINE: BENTO GRID ARCHITECTURE           */}
       {/* ============================================================ */}
       <section style={{ marginBottom: '88px' }}>
@@ -533,6 +616,30 @@ export default function Home() {
                 </span>
               </div>
             </div>
+
+            {/* CTA to Merchant Dashboard */}
+            <Link
+              href="/merchant"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginTop: '20px',
+                padding: '10px 16px',
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(16, 185, 129, 0.08)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: 'var(--accent-emerald)',
+                transition: 'all 0.2s ease',
+                justifyContent: 'center',
+              }}
+            >
+              <Activity size={14} />
+              <span>Open Operator Dashboard</span>
+              <ArrowRight size={12} />
+            </Link>
           </div>
 
           {/* Agent 2: AI Buyer */}
@@ -589,6 +696,30 @@ export default function Home() {
                 </span>
               </div>
             </div>
+
+            {/* CTA to Buyer Console */}
+            <Link
+              href="/buyer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginTop: '20px',
+                padding: '10px 16px',
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(99, 102, 241, 0.08)',
+                border: '1px solid rgba(99, 102, 241, 0.25)',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: 'var(--accent-primary)',
+                transition: 'all 0.2s ease',
+                justifyContent: 'center',
+              }}
+            >
+              <Cpu size={14} />
+              <span>Launch Buyer Console</span>
+              <ArrowRight size={12} />
+            </Link>
           </div>
         </div>
       </section>

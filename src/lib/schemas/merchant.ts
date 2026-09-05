@@ -14,7 +14,7 @@ export const MerchantPolicySchema = z.object({
   upsellEnabled: z.boolean().default(true),
   crossSellEnabled: z.boolean().default(true),
   maxUpsellPriceDeltaPercent: z.number().min(0).max(100).default(25),
-  minMarginPercent: z.number().min(0).max(100).default(15),
+  minMarginPercent: z.number().min(0).max(100).default(20),
   stockBuffer: z.number().int().nonnegative().default(5),
   optimizationObjective: z.enum(['REVENUE', 'MARGIN', 'INVENTORY', 'RETENTION']).default('REVENUE'),
 });
