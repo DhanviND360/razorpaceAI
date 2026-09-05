@@ -57,8 +57,13 @@ export const evaluateAllCatalogs = tool(
         merchantId: m.id,
         merchantName: m.name,
         overallScore: score.overallScore,
+        aiReadinessScore: score.aiReadinessScore,
+        commerceReadinessScore: score.commerceReadinessScore,
         aiReady: score.aiReady,
+        commerceReady: score.commerceReady,
+        isFullyTransactable: score.isFullyTransactable,
         transactionReady: m.transactionReady,
+        transactabilityBlockers: score.transactabilityBlockers,
         recommendation: score.recommendation,
       };
     });
@@ -69,12 +74,15 @@ export const evaluateAllCatalogs = tool(
     return JSON.stringify({
       evaluations,
       aiReadyCount: evaluations.filter(e => e.aiReady).length,
+      fullyTransactableCount: evaluations.filter(e => e.isFullyTransactable).length,
       totalCount: evaluations.length,
-      rejectedMerchants: evaluations.filter(e => !e.aiReady).map(e => ({
+      rejectedMerchants: evaluations.filter(e => !e.isFullyTransactable).map(e => ({
         id: e.merchantId,
         name: e.merchantName,
         score: e.overallScore,
-        reason: e.recommendation,
+        reason: e.transactabilityBlockers.length > 0
+          ? `${e.transactabilityBlockers[0].issue} (Fix: ${e.transactabilityBlockers[0].remedy})`
+          : e.recommendation,
       })),
     });
   },

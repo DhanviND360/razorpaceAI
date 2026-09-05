@@ -57,6 +57,14 @@ export const BuyerAgentState = Annotation.Root({
     reducer: (_, next) => next,
     default: () => [],
   }),
+  whyThisMerchant: Annotation<string>({
+    reducer: (_, next) => next,
+    default: () => '',
+  }),
+  simulationType: Annotation<'price_surge' | 'stock_out' | null>({
+    reducer: (_, next) => next,
+    default: () => null,
+  }),
 
   // Product selection
   searchResults: Annotation<Array<{
@@ -125,6 +133,22 @@ export const BuyerAgentState = Annotation.Root({
   userApproved: Annotation<boolean>({
     reducer: (_, next) => next,
     default: () => false,
+  }),
+  recoveryPlan: Annotation<{
+    canRecover: boolean;
+    reason: string;
+    alternativeProduct?: {
+      id: string;
+      merchantId: string;
+      name: string;
+      price: number;
+      stock: number;
+      rating: number;
+    };
+    suggestedAction: string;
+  } | null>({
+    reducer: (_, next) => next,
+    default: () => null,
   }),
 
   // Razorpay
